@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv='content-type' content='text/html; charset=utf-8'>
+
+<title>IAQ</title>
+
+
+<script type='text/javascript'  src="js/jquery-1.11.3.min.js"></script>
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.9/d3.js'></script>
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.js'></script>
+<script type='text/javascript' src="js/bootstrap.min.js"></script>
+<script type='text/javascript' src="js/highcharts.js"></script>
+<script type='text/javascript' src="js/exporting.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/c3.css"/>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css" >
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/its.css">
+
+<link href='https://fonts.googleapis.com/css?family=Orbitron:400,700|Old+Standard+TT|Montserrat|Slabo+27px|Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+<script type='text/javascript' src="js/its.js"></script>
+
+</head>
+<body style="min-width:960px; margin: 0 auto; ">
+     
+<div>
+<div class = "blur"></div>
+	<div style="height:800px; min-width:800px; margin:0 auto; width:800px;">
+		<header class="header">
+			<div class="pull-left">
+				SENSOR MONITOR <span class="fa fa-home fa-1x"></span>
+			</div>
+			<div id="currentTime" class="pull-right">
+				
+			</div>
+		</header>
+		<section class="red-border main-section pull-left">
+			<div class="red-border">
+				Air Quality is good
+			</div>
+			<div>
+				<span id="healthyHeart" class="heart-white" />
+			</div>
+		</section>
+
+		<aside class="red-border pull-right temperature-section pull-text-left white">
+			<div class="red-border temperature" id="temperature_sesnor_value">
+				
+
+			</div>
+			<div class="red-border">
+				<span class="thermometer" />
+			</div>
+			<div class="red-border temperature-text">
+				TEMPERATURE
+
+			<hr class="white">
+			</div>
+		</aside>
+				
+		<aside class="red-border pull-right" style="width:50%; height:200px; 	margin-left:25px; margin-right:20px;">
+			<div class="red-border pull-left" style="width:48%">
+			<div class="red-border">
+				<div class="pressure"> </div>
+				<span class="pressure-value-text" id="pressure_sesnor_value"></span>
+					<div  class="align-head-center cursor-hand"></div>
+			</div>
+			<br>
+			<div class="temperature-text">PRESSURE</div>
+
+			</div>
+			
+			<div class="red-border pull-right" style="width:49%">
+				<div class="red-border">
+					<div class="humidity"> </div>
+					<span class="pressure-value-text" id="humidity_sesnor_value"></span>
+<div  class="align-head-center cursor-hand"></div>
+				</div>
+				<br>
+				<div class="temperature-text">HUMIDITY</div>
+				
+			</div>
+
+			<br>
+			<br>
+			<br>
+			<br>
+
+			<hr class="white" >
+			<div class="red-border" style="height:100px;">
+			<div id="gasSensorData"> </div> <br>
+			<div class="temperature-text align-center">GAS</div>
+			
+			</div>
+		</aside>
+			
+		<div></div>
+	</div>
+</div>
+
+
+<!-- Button trigger modal -->
+<div style="display:none">
+<button type="button" id="temparatureSensorModelButton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#temparatureSensorModel">
+  Launch temparatureSensorModel
+</button>
+
+<button type="button" id="pressureSensorModelButton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#pressureSensorModel">
+  Launch pressureSensorModel
+</button>
+
+<button type="button" id="humiditySensorModelButton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#humiditySensorModel">
+  Launch humiditySensorModel
+</button>
+
+<button type="button" id="gasSensorModelButton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gasSensorModel">
+  Launch gasSensorModel
+</button>
+</div>
+<!-- Modal -->
+<div class="modal fade black" id="temparatureSensorModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Temparature Sensor Data</h4>
+      </div>
+      <div class="modal-body">
+			<!-- displays your graph-->
+		<div id="temparatureSensorGraph" style="width:960px;"></div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade black" id="pressureSensorModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Pressure Sensor Data</h4>
+      </div>
+      <div class="modal-body">
+		<div id="pressureSensorGraph" style="width:960px;"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade black" id="humiditySensorModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Humidity Sensor Data</h4>
+      </div>
+      <div class="modal-body">
+        	<div id="humiditySensorGraph" style="width:960px;"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade black" id="gasSensorModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Gas Sensor Data</h4>
+      </div>
+      <div class="modal-body">
+        <div id="gasSensorGraph" style="width:960px;"> </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script type='text/JavaScript'>
+
+/*************************************************************************************************************/
+// this code shows high charts graph
+
+</script>
+
+
+</body>
+</html>
